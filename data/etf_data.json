@@ -1,0 +1,59 @@
+{
+  "last_updated": "2025-10-18T01:32:14.226588+09:00",
+  "declaration_date": "2025-10-15",
+  "ex_record_date": "2025-10-16",
+  "payment_date": "2025-10-17",
+  "etfs": [
+    {
+      "symbol": "TSLY",
+      "name": "YieldMax TSLA Option Income Strategy ETF",
+      "dividend": 0.1938,
+      "rate": 60.17,
+      "sec": 2.48,
+      "roc": 100.0,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "NVDY",
+      "name": "YieldMax NVDA Option Income Strategy ETF",
+      "dividend": 0.1094,
+      "rate": 36.62,
+      "sec": 2.29,
+      "roc": 0.0,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "MSTY",
+      "name": "YieldMax MSTR Option Income Strategy ETF",
+      "dividend": 0.6074,
+      "rate": 80.27,
+      "sec": 2.48,
+      "roc": 95.96,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "HOOY",
+      "name": "YieldMax HOOD Option Income Strategy ETF",
+      "dividend": 5.9472,
+      "rate": 106.57,
+      "sec": 1.77,
+      "roc": 0.0,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "AMDY",
+      "name": "YieldMax AMD Option Income Strategy ETF",
+      "dividend": 0.9502,
+      "rate": 125.0,
+      "sec": 2.01,
+      "roc": 98.55,
+      "period": "Weekly"
+    }
+  ],
+  "statistics": {
+    "total_count": 5,
+    "avg_rate": 81.72,
+    "max_rate": 125.0,
+    "min_rate": 36.62
+  }
+}
