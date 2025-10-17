@@ -1,0 +1,72 @@
+name: Update YieldMax ETF Data
+
+on:
+  schedule:
+    # 매주 금요일 오후 6시 (KST) = 오전 9시 (UTC)
+    - cron: '0 9 * * 5'
+  workflow_dispatch: # 수동 실행 가능
+  push:
+    branches: [ main ]
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Create data directory
+      run: mkdir -p data
+      
+    - name: Run ETF data scraper
+      run: python yieldmax_scraper.py
+      
+    - name: Check if data was updated
+      id: check_changes
+      run: |
+        if [ -f "data/etf_data.json" ]; then
+          echo "data_exists=true" >> $GITHUB_OUTPUT
+          if git diff --quiet data/etf_data.json; then
+            echo "data_changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "data_changed=true" >> $GITHUB_OUTPUT
+          fi
+        else
+          echo "data_exists=false" >> $GITHUB_OUTPUT
+          echo "data_changed=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Commit and push changes
+      if: steps.check_changes.outputs.data_changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/etf_data.json
+        git commit -m "Update ETF data - $(date +'%Y-%m-%d %H:%M:%S KST')"
+        git push
+        
+    - name: Deploy to GitHub Pages
+      if: steps.check_changes.outputs.data_exists == 'true'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        
+    - name: Notify completion
+      if: always()
+      run: |
+        echo "ETF data update job completed"
+        echo "Data exists: ${{ steps.check_changes.outputs.data_exists }}"
+        echo "Data changed: ${{ steps.check_changes.outputs.data_changed }}"
