@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YieldMax ETF 자동 배당 대시보드</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #1e3a8a;
+            --accent-color: #f59e0b;
+            --background-color: #0f0f23;
+            --surface-color: #1a1a3e;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--background-color) 0%, #1a1a3e 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .refresh-btn {
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .table-container {
+            background: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        th:hover {
+            background: var(--primary-color);
+        }
+
+        th.sortable::after {
+            content: '↕️';
+            margin-left: 8px;
+            opacity: 0.5;
+        }
+
+        th.sort-asc::after {
+            content: '↑';
+            opacity: 1;
+        }
+
+        th.sort-desc::after {
+            content: '↓';
+            opacity: 1;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .symbol {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .positive {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .negative {
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .update-info {
+            margin-bottom: 20px;
+        }
+
+        .date-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .date-item {
+            background: var(--surface-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .date-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .date-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .date-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>YieldMax ETF 자동 배당 대시보드</h1>
+            <p>매주 자동 업데이트되는 일드맥스 ETF 배당 정보</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalCount">-</div>
+                <div class="stat-label">총 ETF 수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgRate">-</div>
+                <div class="stat-label">평균 배당률</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="maxRate">-</div>
+                <div class="stat-label">최고 배당률</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="minRate">-</div>
+                <div class="stat-label">최저 배당률</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="심볼이나 ETF명으로 검색...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <button class="refresh-btn" onclick="loadData()">
+                데이터 새로고침
+            </button>
+        </div>
+
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+            <div>ETF 데이터를 불러오는 중...</div>
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none;"></div>
+
+        <div class="table-container" id="tableContainer" style="display: none;">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="symbol">심볼</th>
+                            <th class="sortable" data-sort="name">ETF명</th>
+                            <th class="sortable" data-sort="dividend">배당금 ($)</th>
+                            <th class="sortable" data-sort="rate">배당률 (%)</th>
+                            <th class="sortable" data-sort="sec">SEC Yield (%)</th>
+                            <th class="sortable" data-sort="roc">ROC (%)</th>
+                            <th class="sortable" data-sort="period">주기</th>
+                        </tr>
+                    </thead>
+                    <tbody id="etfTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="update-info">
+                <strong>마지막 업데이트:</strong> <span id="lastUpdated">-</span>
+            </div>
+            
+            <div class="date-info">
+                <div class="date-item">
+                    <span class="date-label">배당 선언일</span>
+                    <span class="date-value" id="declarationDate">-</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-label">배당 기준일</span>
+                    <span class="date-value" id="exRecordDate">-</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-label">배당 지급일</span>
+                    <span class="date-value" id="paymentDate">-</span>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-top: 20px;">
+                📊 GitHub Actions로 매주 금요일 자동 업데이트 | 
+                🚀 <a href="https://github.com/tomorrow2091-dot/yieldmax-dashboard" target="_blank" style="color: var(--primary-color);">소스 코드</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let currentData = [];
+        let currentSort = { key: null, direction: 'asc' };
+
+        // 페이지 로드 시 데이터 불러오기
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // 검색 기능
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndRenderTable();
+            });
+
+            // 테이블 헤더 정렬
+            document.querySelectorAll('th.sortable').forEach(header => {
+                header.addEventListener('click', function() {
+                    const sortKey = this.dataset.sort;
+                    sortTable(sortKey);
+                });
+            });
+        }
+
+        async function loadData() {
+            try {
+                showLoading(true);
+                hideError();
+
+                // GitHub에서 ETF 데이터 로드
+                const response = await fetch('./data/etf_data.json');
+                
+                if (!response.ok) {
+                    throw new Error('데이터를 불러올 수 없습니다.');
+                }
+
+                const data = await response.json();
+                currentData = data.etfs || [];
+                
+                updateStatistics(data.statistics);
+                updateDateInfo(data);
+                filterAndRenderTable();
+                
+                showLoading(false);
+                document.getElementById('tableContainer').style.display = 'block';
+
+            } catch (error) {
+                console.error('데이터 로드 오류:', error);
+                showError('데이터를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.');
+                showLoading(false);
+                
+                // 폴백 데이터 사용
+                loadFallbackData();
+            }
+        }
+
+        function loadFallbackData() {
+            const fallbackData = {
+                etfs: [
+                    { symbol: "TSLY", name: "YieldMax TSLA Option Income Strategy ETF", dividend: 0.1938, rate: 60.17, sec: 2.48, roc: 100.00, period: "Weekly" },
+                    { symbol: "NVDY", name: "YieldMax NVDA Option Income Strategy ETF", dividend: 0.1094, rate: 36.62, sec: 2.29, roc: 0.00, period: "Weekly" },
+                    { symbol: "MSTY", name: "YieldMax MSTR Option Income Strategy ETF", dividend: 0.6074, rate: 80.27, sec: 2.48, roc: 95.96, period: "Weekly" }
+                ],
+                statistics: { total_count: 3, avg_rate: 58.35, max_rate: 80.27, min_rate: 36.62 },
+                last_updated: new Date().toISOString(),
+                declaration_date: "2025-10-15",
+                ex_record_date: "2025-10-16", 
+                payment_date: "2025-10-17"
+            };
+
+            currentData = fallbackData.etfs;
+            updateStatistics(fallbackData.statistics);
+            updateDateInfo(fallbackData);
+            filterAndRenderTable();
+            document.getElementById('tableContainer').style.display = 'block';
+        }
+
+        function updateStatistics(stats) {
+            if (!stats) return;
+            
+            document.getElementById('totalCount').textContent = stats.total_count || 0;
+            document.getElementById('avgRate').textContent = `${stats.avg_rate || 0}%`;
+            document.getElementById('maxRate').textContent = `${stats.max_rate || 0}%`;
+            document.getElementById('minRate').textContent = `${stats.min_rate || 0}%`;
+        }
+
+        function updateDateInfo(data) {
+            const lastUpdated = data.last_updated ? 
+                new Date(data.last_updated).toLocaleString('ko-KR', { 
+                    timeZone: 'Asia/Seoul',
+                    year: 'numeric',
+                    month: '2-digit', 
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : '-';
+
+            document.getElementById('lastUpdated').textContent = lastUpdated;
+            document.getElementById('declarationDate').textContent = data.declaration_date || '-';
+            document.getElementById('exRecordDate').textContent = data.ex_record_date || '-';
+            document.getElementById('paymentDate').textContent = data.payment_date || '-';
+        }
+
+        function filterAndRenderTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filteredData = currentData.filter(etf => 
+                etf.symbol.toLowerCase().includes(searchTerm) || 
+                etf.name.toLowerCase().includes(searchTerm)
+            );
+
+            renderTable(filteredData);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('etfTableBody');
+            tbody.innerHTML = '';
+
+            data.forEach(etf => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="symbol">${etf.symbol}</span></td>
+                    <td>${etf.name}</td>
+                    <td>$${etf.dividend.toFixed(4)}</td>
+                    <td class="${etf.rate > 50 ? 'positive' : ''}">${etf.rate.toFixed(2)}%</td>
+                    <td>${etf.sec.toFixed(2)}%</td>
+                    <td class="${etf.roc > 80 ? 'positive' : etf.roc < 20 ? 'negative' : ''}">${etf.roc.toFixed(2)}%</td>
+                    <td>${etf.period}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function sortTable(key) {
+            // 정렬 방향 결정
+            if (currentSort.key === key) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.key = key;
+                currentSort.direction = 'asc';
+            }
+
+            // 헤더 UI 업데이트
+            document.querySelectorAll('th.sortable').forEach(header => {
+                header.classList.remove('sort-asc', 'sort-desc');
+            });
+
+            const currentHeader = document.querySelector(`th[data-sort="${key}"]`);
+            currentHeader.classList.add(`sort-${currentSort.direction}`);
+
+            // 데이터 정렬
+            currentData.sort((a, b) => {
+                let aVal = a[key];
+                let bVal = b[key];
+
+                // 숫자인 경우
+                if (typeof aVal === 'number' && typeof bVal === 'number') {
+                    return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+
+                // 문자열인 경우
+                aVal = String(aVal).toLowerCase();
+                bVal = String(bVal).toLowerCase();
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+                } else {
+                    return aVal > bVal ? -1 : aVal < bVal ? 1 : 0;
+                }
+            });
+
+            filterAndRenderTable();
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
