@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-10T19:09:52.498404+09:00",
+  "last_updated": "2026-04-17T19:15:55.545836+09:00",
   "declaration_date": "2025-10-15",
   "ex_record_date": "2025-10-16",
   "payment_date": "2025-10-17",
@@ -7,78 +7,42 @@
     {
       "symbol": "TSLY",
       "name": "YieldMax TSL Option Income Strategy ETF",
-      "dividend": 0.39,
-      "rate": 49,
-      "sec": 5,
-      "roc": 29,
+      "dividend": 1.03,
+      "rate": 73,
+      "sec": 4,
+      "roc": 93,
       "period": "Weekly"
     },
     {
       "symbol": "NVDY",
       "name": "YieldMax NVD Option Income Strategy ETF",
-      "dividend": 0.39,
-      "rate": 89,
+      "dividend": 0.19,
+      "rate": 29,
       "sec": 5,
-      "roc": 29,
+      "roc": 9,
       "period": "Weekly"
     },
     {
       "symbol": "MSTY",
       "name": "YieldMax MST Option Income Strategy ETF",
-      "dividend": 0.9,
-      "rate": 40,
-      "sec": 1,
-      "roc": 80,
+      "dividend": 0.51,
+      "rate": 21,
+      "sec": 2,
+      "roc": 41,
       "period": "Weekly"
     },
     {
       "symbol": "APLY",
       "name": "YieldMax APL Option Income Strategy ETF",
-      "dividend": 0.17,
-      "rate": 87,
-      "sec": 3,
-      "roc": 7,
+      "dividend": 0.43,
+      "rate": 53,
+      "sec": 4,
+      "roc": 33,
       "period": "Weekly"
     },
     {
       "symbol": "GOOY",
       "name": "YieldMax GOO Option Income Strategy ETF",
-      "dividend": 0.89,
-      "rate": 59,
-      "sec": 5,
-      "roc": 79,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "AMZY",
-      "name": "YieldMax AMZ Option Income Strategy ETF",
-      "dividend": 0.93,
-      "rate": 63,
-      "sec": 4,
-      "roc": 83,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "NFLY",
-      "name": "YieldMax NFL Option Income Strategy ETF",
-      "dividend": 1.07,
-      "rate": 97,
-      "sec": 3,
-      "roc": 97,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "CONY",
-      "name": "YieldMax CON Option Income Strategy ETF",
-      "dividend": 0.82,
-      "rate": 72,
-      "sec": 3,
-      "roc": 72,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "OARK",
-      "name": "YieldMax OARK Option Income Strategy ETF",
       "dividend": 0.64,
       "rate": 74,
       "sec": 5,
@@ -86,55 +50,91 @@
       "period": "Weekly"
     },
     {
+      "symbol": "AMZY",
+      "name": "YieldMax AMZ Option Income Strategy ETF",
+      "dividend": 0.13,
+      "rate": 23,
+      "sec": 4,
+      "roc": 3,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "NFLY",
+      "name": "YieldMax NFL Option Income Strategy ETF",
+      "dividend": 0.99,
+      "rate": 69,
+      "sec": 5,
+      "roc": 89,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "CONY",
+      "name": "YieldMax CON Option Income Strategy ETF",
+      "dividend": 0.28,
+      "rate": 78,
+      "sec": 4,
+      "roc": 18,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "OARK",
+      "name": "YieldMax OARK Option Income Strategy ETF",
+      "dividend": 0.59,
+      "rate": 89,
+      "sec": 5,
+      "roc": 49,
+      "period": "Weekly"
+    },
+    {
       "symbol": "PYPY",
       "name": "YieldMax PP Option Income Strategy ETF",
-      "dividend": 1.09,
-      "rate": 39,
-      "sec": 5,
-      "roc": 99,
+      "dividend": 0.43,
+      "rate": 33,
+      "sec": 4,
+      "roc": 33,
       "period": "Weekly"
     },
     {
       "symbol": "PLTY",
       "name": "YieldMax PLT Option Income Strategy ETF",
-      "dividend": 0.7,
-      "rate": 20,
-      "sec": 1,
-      "roc": 60,
+      "dividend": 0.56,
+      "rate": 66,
+      "sec": 2,
+      "roc": 46,
       "period": "Weekly"
     },
     {
       "symbol": "HOOY",
       "name": "YieldMax HOO Option Income Strategy ETF",
-      "dividend": 0.35,
-      "rate": 85,
-      "sec": 1,
-      "roc": 25,
+      "dividend": 0.99,
+      "rate": 29,
+      "sec": 5,
+      "roc": 89,
       "period": "Weekly"
     },
     {
       "symbol": "MARO",
       "name": "YieldMax MARO Option Income Strategy ETF",
-      "dividend": 0.47,
-      "rate": 97,
-      "sec": 3,
-      "roc": 37,
+      "dividend": 0.2,
+      "rate": 90,
+      "sec": 1,
+      "roc": 10,
       "period": "Weekly"
     },
     {
       "symbol": "SMCY",
       "name": "YieldMax SMC Option Income Strategy ETF",
-      "dividend": 0.87,
-      "rate": 57,
-      "sec": 3,
-      "roc": 77,
+      "dividend": 0.68,
+      "rate": 78,
+      "sec": 4,
+      "roc": 58,
       "period": "Weekly"
     }
   ],
   "statistics": {
     "total_count": 14,
-    "avg_rate": 66.29,
-    "max_rate": 97,
-    "min_rate": 20
+    "avg_rate": 57.5,
+    "max_rate": 90,
+    "min_rate": 21
   }
 }
