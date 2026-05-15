@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-08T19:26:15.255213+09:00",
+  "last_updated": "2026-05-15T20:23:16.809680+09:00",
   "declaration_date": "2025-10-15",
   "ex_record_date": "2025-10-16",
   "payment_date": "2025-10-17",
@@ -7,37 +7,37 @@
     {
       "symbol": "TSLY",
       "name": "YieldMax TSL Option Income Strategy ETF",
-      "dividend": 1.03,
-      "rate": 93,
-      "sec": 4,
-      "roc": 93,
+      "dividend": 0.54,
+      "rate": 84,
+      "sec": 5,
+      "roc": 44,
       "period": "Weekly"
     },
     {
       "symbol": "NVDY",
       "name": "YieldMax NVD Option Income Strategy ETF",
-      "dividend": 0.14,
-      "rate": 44,
+      "dividend": 0.29,
+      "rate": 99,
       "sec": 5,
-      "roc": 4,
+      "roc": 19,
       "period": "Weekly"
     },
     {
       "symbol": "MSTY",
       "name": "YieldMax MST Option Income Strategy ETF",
-      "dividend": 0.35,
-      "rate": 45,
-      "sec": 1,
-      "roc": 25,
+      "dividend": 0.17,
+      "rate": 47,
+      "sec": 3,
+      "roc": 7,
       "period": "Weekly"
     },
     {
       "symbol": "APLY",
       "name": "YieldMax APL Option Income Strategy ETF",
-      "dividend": 0.29,
-      "rate": 39,
+      "dividend": 0.14,
+      "rate": 44,
       "sec": 5,
-      "roc": 19,
+      "roc": 4,
       "period": "Weekly"
     },
     {
@@ -52,89 +52,89 @@
     {
       "symbol": "AMZY",
       "name": "YieldMax AMZ Option Income Strategy ETF",
-      "dividend": 0.33,
-      "rate": 23,
-      "sec": 4,
-      "roc": 23,
+      "dividend": 0.8,
+      "rate": 50,
+      "sec": 1,
+      "roc": 70,
       "period": "Weekly"
     },
     {
       "symbol": "NFLY",
       "name": "YieldMax NFL Option Income Strategy ETF",
-      "dividend": 0.56,
-      "rate": 86,
-      "sec": 2,
-      "roc": 46,
+      "dividend": 1.04,
+      "rate": 94,
+      "sec": 5,
+      "roc": 94,
       "period": "Weekly"
     },
     {
       "symbol": "CONY",
       "name": "YieldMax CON Option Income Strategy ETF",
-      "dividend": 0.7,
-      "rate": 60,
-      "sec": 1,
-      "roc": 60,
+      "dividend": 0.23,
+      "rate": 73,
+      "sec": 4,
+      "roc": 13,
       "period": "Weekly"
     },
     {
       "symbol": "OARK",
       "name": "YieldMax OARK Option Income Strategy ETF",
-      "dividend": 0.66,
-      "rate": 96,
-      "sec": 2,
-      "roc": 56,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "PYPY",
-      "name": "YieldMax PP Option Income Strategy ETF",
-      "dividend": 0.98,
-      "rate": 28,
-      "sec": 4,
-      "roc": 88,
-      "period": "Weekly"
-    },
-    {
-      "symbol": "PLTY",
-      "name": "YieldMax PLT Option Income Strategy ETF",
       "dividend": 0.38,
-      "rate": 88,
+      "rate": 68,
       "sec": 4,
       "roc": 28,
       "period": "Weekly"
     },
     {
+      "symbol": "PYPY",
+      "name": "YieldMax PP Option Income Strategy ETF",
+      "dividend": 0.65,
+      "rate": 35,
+      "sec": 1,
+      "roc": 55,
+      "period": "Weekly"
+    },
+    {
+      "symbol": "PLTY",
+      "name": "YieldMax PLT Option Income Strategy ETF",
+      "dividend": 0.56,
+      "rate": 46,
+      "sec": 2,
+      "roc": 46,
+      "period": "Weekly"
+    },
+    {
       "symbol": "HOOY",
       "name": "YieldMax HOO Option Income Strategy ETF",
-      "dividend": 0.47,
-      "rate": 97,
+      "dividend": 0.17,
+      "rate": 27,
       "sec": 3,
-      "roc": 37,
+      "roc": 7,
       "period": "Weekly"
     },
     {
       "symbol": "MARO",
       "name": "YieldMax MARO Option Income Strategy ETF",
-      "dividend": 0.16,
-      "rate": 26,
+      "dividend": 0.66,
+      "rate": 36,
       "sec": 2,
-      "roc": 6,
+      "roc": 56,
       "period": "Weekly"
     },
     {
       "symbol": "SMCY",
       "name": "YieldMax SMC Option Income Strategy ETF",
-      "dividend": 0.47,
-      "rate": 57,
-      "sec": 3,
-      "roc": 37,
+      "dividend": 1.0,
+      "rate": 90,
+      "sec": 1,
+      "roc": 90,
       "period": "Weekly"
     }
   ],
   "statistics": {
     "total_count": 14,
-    "avg_rate": 61.71,
-    "max_rate": 97,
-    "min_rate": 23
+    "avg_rate": 62.5,
+    "max_rate": 99,
+    "min_rate": 27
   }
 }
